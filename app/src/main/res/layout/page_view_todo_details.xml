@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:theme="@style/TextInputLayoutStyle"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backButton"
+            style="@style/BackButton"
+            android:contentDescription="@string/back_button" />
+
+        <ImageView
+            android:id="@+id/changeButton"
+            style="@style/BackButton"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="Change Button"
+            android:src="@drawable/baseline_create_24" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/todoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="title"
+        android:textAllCaps="true"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/todoDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="5dp"
+            android:text="Jan 23, 2024"
+            android:textColor="@color/gray"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/todoTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23:23"
+            android:textColor="@color/gray"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:hint="@string/note"
+        >
+
+        <EditText
+            android:id="@+id/todoNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:gravity="top"
+            android:imeOptions="actionDone"
+
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:overScrollMode="always"
+            android:padding="5dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollHorizontally="false" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:onClick="onButtonClicked"
+        android:paddingHorizontal="50dp"
+        android:text="Done"
+        android:textSize="30sp" />
+
+</LinearLayout>

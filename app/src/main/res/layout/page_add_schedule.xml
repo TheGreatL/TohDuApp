@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/TextInputLayoutStyle"
+    tools:context=".Page.AddSchedulePage">
+
+    <ImageView
+        android:id="@+id/backButton"
+        style="@style/BackButton"
+        android:contentDescription="@string/back_button" />
+
+    <Button
+        android:id="@+id/saveButton"
+        style="@style/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:onClick="onButtonClicked"
+        android:text="Save" />
+
+    <TextView
+        android:id="@+id/termTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="2nd Term/1st Year"
+
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/numberDaysLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backButton"
+        android:layout_marginHorizontal="20dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:hint="Number day with no class"
+        app:endIconMode="clear_text"
+
+        >
+
+        <EditText
+            android:id="@+id/numDayOffEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeOptions="actionDone"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/numberDaysLayout">
+
+        <LinearLayout
+            android:id="@+id/subjectInputLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
