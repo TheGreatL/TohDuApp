@@ -97,37 +97,40 @@ public class SchedulePage extends AppCompatActivity implements ImportantMethod {
 
 
     }
-
+    private void goViewSubjectDetailsPage(int id){
+        nextPage(ViewSubjectDetailsPage.class, new ArrayList<>(Collections.singletonList(String.valueOf(id))));
+    }
     private void loadRecyclerView(String termID) {
 
         mondayList = SQLiteDB.getSubjectData(this, daysInAWeek.MONDAY.toString(), termID);
         mondayRecyclerView.setAdapter(new SubjectAdapter(mondayList, position -> {
-            Log.d("MondayRecyclerView", "loadRecyclerView: " + mondayList.get(position));
+            goViewSubjectDetailsPage(mondayList.get(position).getSubjectID());
         }));
 
         tuesdayList = SQLiteDB.getSubjectData(this, daysInAWeek.TUESDAY.toString(), termID);
         tuesdayRecyclerView.setAdapter(new SubjectAdapter(tuesdayList, position -> {
 
+            goViewSubjectDetailsPage(tuesdayList.get(position).getSubjectID());
         }));
 
         wednesdayList = SQLiteDB.getSubjectData(this, daysInAWeek.WEDNESDAY.toString(), termID);
         wednesdayRecyclerView.setAdapter(new SubjectAdapter(wednesdayList, position -> {
-
+            goViewSubjectDetailsPage(wednesdayList.get(position).getSubjectID());
         }));
 
         thursdayList = SQLiteDB.getSubjectData(this, daysInAWeek.THURSDAY.toString(), termID);
         thursdayRecyclerView.setAdapter(new SubjectAdapter(thursdayList, position -> {
-
+            goViewSubjectDetailsPage(thursdayList.get(position).getSubjectID());
         }));
 
         fridayList = SQLiteDB.getSubjectData(this, daysInAWeek.FRIDAY.toString(), termID);
         fridayRecyclerView.setAdapter(new SubjectAdapter(fridayList, position -> {
-
+            goViewSubjectDetailsPage(fridayList.get(position).getSubjectID());
         }));
 
         saturdayList = SQLiteDB.getSubjectData(this, daysInAWeek.SATURDAY.toString(), termID);
         saturdayRecyclerView.setAdapter(new SubjectAdapter(saturdayList, position -> {
-
+            goViewSubjectDetailsPage(saturdayList.get(position).getSubjectID());
         }));
 
         if (!mondayList.isEmpty() || !tuesdayList.isEmpty() || !wednesdayList.isEmpty() || !thursdayList.isEmpty() || !fridayList.isEmpty() || !saturdayList.isEmpty()) {

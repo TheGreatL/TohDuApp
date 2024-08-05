@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page.ViewSubjectDetailsPage">
+
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backButton"
+            style="@style/BackButton"
+            android:contentDescription="@string/back_button" />
+
+        <TextView
+            android:id="@+id/subjectNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/backButton"
+            android:text="Advance System Integration Agriculture"
+            android:textSize="30sp"
+
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            >
+
+            <TextView
+                android:id="@+id/subjectTermView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject Info"
+                android:layout_marginVertical="10dp"
+                />
+
+            <TextView
+                android:id="@+id/subjectInstructorView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject Instrucor"
+                android:layout_marginVertical="10dp"/>
+
+
+            <TextView
+                android:id="@+id/subjectScheduleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject Schedule:"
+                android:layout_marginVertical="10dp"
+                />
+
+            <TextView
+                android:id="@+id/subjectTypeView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject Info"
+                android:layout_marginVertical="10dp"
+                />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/filesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:theme="@style/TextInputLayoutStyle"
+                android:paddingHorizontal="20dp"
+                >
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Notes"
+                    android:gravity="top"
+                    app:hintTextColor="@color/black"
+                    >
+
+                    <EditText
+                        android:id="@+id/subjectNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:lines="10"
+                        android:gravity="top"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

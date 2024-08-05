@@ -3,6 +3,8 @@ package com.example.tohdu.RecyclerClasses;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +45,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 
         TextView name,time,room,instructor;
         CardView cardView;
+        LinearLayout layout;
         public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
@@ -50,7 +53,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             time = itemView.findViewById(R.id.timeView);
             room = itemView.findViewById(R.id.roomView);
             instructor = itemView.findViewById(R.id.instructorView);
-
+            layout = itemView.findViewById(R.id.layout);
             cardView.setOnClickListener(view ->{
 
                 if(recyclerViewInterface == null){
@@ -61,6 +64,23 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
                 if(position == RecyclerView.NO_POSITION){
                     return;
                 }
+
+                recyclerViewInterface.onViewClicked(position);
+
+            });
+
+
+            layout.setOnClickListener(view ->{
+
+                if(recyclerViewInterface == null){
+                    return;
+                }
+                int position = getAdapterPosition();
+
+                if(position == RecyclerView.NO_POSITION){
+                    return;
+                }
+
                 recyclerViewInterface.onViewClicked(position);
 
             });

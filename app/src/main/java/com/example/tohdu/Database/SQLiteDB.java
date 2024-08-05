@@ -18,8 +18,11 @@ import com.example.tohdu.RecyclerClasses.SubjectClass;
 import com.example.tohdu.RecyclerClasses.TodoItem;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 import javax.security.auth.Subject;
 
@@ -28,8 +31,6 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public SQLiteDB(@Nullable Context context) {
         super(context, "TohDu_DB", null, 2);
     }
-
-
 
 
     @Override
@@ -322,12 +323,52 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
         return null;
     }
-    public static void deleteSubjectSchedule(Context context, String termID) {
-        try(SQLiteDatabase sqLiteDatabase = new SQLiteDB(context).getWritableDatabase()){
+
+    @SuppressLint("Range")
+    public static SubjectClass getSingleSubject(Context context, int id) {
+        try(SQLiteDatabase sqLiteDatabase =new SQLiteDB(context).getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SubjectTBL INNER JOIN TermTBL, ScheduleTbl ON SubjectTBL.SubjectScheduleID = ScheduleTbl.ScheduleID AND TermTBL.TermID = SubjectTBL.TermID WHERE SubjectID  = ?;",new String[]{String.valueOf(id)})){
+
+            Set<String> setSubject = new LinkedHashSet<>();
+            while (cursor.moveToNext()){
+                setSubject.add(cursor.getString(cursor.getColumnIndex("SubjectName")));
+                setSubject.add(cursor.getString(cursor.getColumnIndex("SubjectInstructor")));
+                setSubject.add(cursor.getString(cursor.getColumnIndex("SubjectType")));
+                setSubject.add(cursor.getString(cursor.getColumnIndex("TermName")));
+                String format = "RoomSched="+cursor.getString(cursor.getColumnIndex("SubjectDay"))+","+cursor.getString(cursor.getColumnIndex("SubjectRoom"))+" = "+cursor.getString(cursor.getColumnIndex("SubjectTimeStart"))+"-"+cursor.getString(cursor.getColumnIndex("SubjectTimeEnd"));
+                setSubject.add(format);
+            }
+
+            Queue<String> queue =new LinkedList<>();
+
+            StringBuilder formatRoomSched = new StringBuilder();
+            for(String s : setSubject){
+                    if(s.startsWith("RoomSched=")){
+                        formatRoomSched.append(s.split("RoomSched=")[1]);
+                        formatRoomSched.append("\n");
+                        formatRoomSched.append("\n");
+                        continue;
+                    }
+                queue.offer(s);
+            }
+            queue.offer(formatRoomSched.toString().trim());
+
+            return new SubjectClass(queue.poll(),queue.poll(),queue.poll(),queue.poll(),queue.poll());
 
         }
         catch (SQLException e){
-            errorMessage("Delete subject failed.",context);
+            errorMessage("Error getting single subject data on database", context);
+        }
+
+        return null;
+    }
+
+    public static void deleteSubjectSchedule(Context context, String termID) {
+        try (SQLiteDatabase sqLiteDatabase = new SQLiteDB(context).getWritableDatabase()) {
+
+        } catch (SQLException e) {
+            errorMessage("Delete subject failed.", context);
         }
 
     }

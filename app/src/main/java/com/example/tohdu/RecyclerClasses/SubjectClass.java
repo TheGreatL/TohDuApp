@@ -7,6 +7,28 @@ public class SubjectClass {
     private String timeIn;
     private String day;
     private String timeOut;
+    private String sched;
+    private String termName;
+
+    public void setSched(String sched) {
+        this.sched = sched;
+    }
+
+    public String getTermName() {
+        return termName;
+    }
+
+    public void setTermName(String termName) {
+        this.termName = termName;
+    }
+
+    public SubjectClass( String name, String instructor, String subjectType,String termName, String sched) {
+        this.name = name;
+        this.sched = sched;
+        this.instructor = instructor;
+        this.subjectType = subjectType;
+        this.termName = termName;
+    }
 
     public SubjectClass(int subjectID, String name, String room, String instructor, String timeIn, String timeOut) {
         this.subjectID = subjectID;
@@ -26,6 +48,9 @@ public class SubjectClass {
         this.timeOut = timeOut;
         this.instructor = instructor;
         this.subjectType = subjectType;
+    }
+    public String getSched() {
+        return sched;
     }
 
     public int getSubjectID() {
