@@ -179,6 +179,8 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
             if (SQLiteDB.writeTodo(this, title, info[0], info[1], note)) {
                 Toast.makeText(this, "Successful Set", Toast.LENGTH_SHORT).show();
                 nextPage(HomePage.class, null);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                finish();
             }
         } else if (view.getId() == R.id.backButton) {
             finish();
@@ -189,7 +191,9 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
             }
             Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Your Todo will go to history", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+            nextPage(HomePage.class,null);
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+            finish();
         } else if (view.getId() == R.id.changeButton) {
             Toast.makeText(this, "Change Button", Toast.LENGTH_SHORT).show();
         }
@@ -215,10 +219,5 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
 
     }
 
-    @Override
-    public void onBackPressed() {
-        nextPage(HomePage.class, null);
-        super.onBackPressed();
 
-    }
 }

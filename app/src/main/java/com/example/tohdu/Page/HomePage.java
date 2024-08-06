@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tohdu.AlarmReceiver;
 import com.example.tohdu.Database.SQLiteDB;
@@ -38,6 +39,7 @@ import java.util.TimeZone;
 public class HomePage extends AppCompatActivity implements ImportantMethod {
 
     private List<TodoItem> todoItemList;
+    private List<TodoItem> historyList;
     private int CurrentPage = 0;
     private int currentId = 0;
 
@@ -52,9 +54,39 @@ public class HomePage extends AppCompatActivity implements ImportantMethod {
 
     @Override
     public void runCode() {
+        RecyclerView todoRecyclerView = findViewById(R.id.todoRecyclerView);
+        RecyclerView history = findViewById(R.id.historyRecyclerView);
+
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            todoItemList = SQLiteDB.getTodoItem(this);
+            assert todoItemList != null;
+            todoRecyclerView.setAdapter(new TodoAdapter(todoItemList,
+                    position -> {
+                        ArrayList<Object> pass = new ArrayList<>();
+                        pass.add("ViewAlarm");
+                        pass.add(todoItemList.get(position).getId());
+                        pass.add("NOT DONE");
+                        nextPage(GeneralTodoListPage.class, pass);
+
+                    }, R.layout.layout_tohdu));
+
+            historyList = SQLiteDB.getTodoHistory(this);
+
+            assert historyList != null;
+            history.setAdapter(new TodoAdapter(historyList,
+                    position -> {
+                        ArrayList<Object> pass = new ArrayList<>();
+                        pass.add("ViewAlarm");
+                        pass.add(historyList.get(position).getId());
+                        pass.add("DONE");
+                        nextPage(GeneralTodoListPage.class, pass);
+
+                    }, R.layout.layout_tohdu));
+            swipeRefreshLayout.setRefreshing(false);
+        });
         initBottomNav(R.id.homePage);
         todoItemList = SQLiteDB.getTodoItem(this);
-        RecyclerView todoRecyclerView = findViewById(R.id.todoRecyclerView);
         assert todoItemList != null;
         todoRecyclerView.setAdapter(new TodoAdapter(todoItemList,
                 position -> {
@@ -66,9 +98,8 @@ public class HomePage extends AppCompatActivity implements ImportantMethod {
 
                 }, R.layout.layout_tohdu));
 
-        List<TodoItem> historyList = SQLiteDB.getTodoHistory(this);
+        historyList = SQLiteDB.getTodoHistory(this);
 
-        RecyclerView history = findViewById(R.id.historyRecyclerView);
         assert historyList != null;
         history.setAdapter(new TodoAdapter(historyList,
                 position -> {
@@ -204,8 +235,6 @@ public class HomePage extends AppCompatActivity implements ImportantMethod {
 
 
         if (view.getId() == R.id.addButton) {
-            finish();
-            startActivity(getIntent());
             nextPage(GeneralTodoListPage.class, new ArrayList<>(Collections.singletonList("AddToDo")));
         }
     }
@@ -234,21 +263,27 @@ public class HomePage extends AppCompatActivity implements ImportantMethod {
         if (view.getId() == CurrentPage || view.getId() == currentId)
             return;
 
+
         if (view.getId() == R.id.homePage || view.getId() == R.id.homeIcon) {
             nextPage(HomePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
-
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
         } else if (view.getId() == R.id.schedulePage || view.getId() == R.id.scheduleIcon) {
 
             nextPage(SchedulePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
             finish();
         } else if (view.getId() == R.id.notePage || view.getId() == R.id.noteIcon) {
 
             nextPage(NotePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
+
         } else if (view.getId() == R.id.aiPage || view.getId() == R.id.aiIcon) {
 
             nextPage(AiPage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         }
     }

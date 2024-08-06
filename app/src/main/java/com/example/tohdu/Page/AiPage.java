@@ -101,19 +101,24 @@ public class AiPage extends AppCompatActivity implements ImportantMethod {
 
         if (view.getId() == R.id.homePage || view.getId() == R.id.homeIcon) {
             nextPage(HomePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             finish();
-
         } else if (view.getId() == R.id.schedulePage || view.getId() == R.id.scheduleIcon) {
 
             nextPage(SchedulePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+
             finish();
         } else if (view.getId() == R.id.notePage || view.getId() == R.id.noteIcon) {
 
             nextPage(NotePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             finish();
+
         } else if (view.getId() == R.id.aiPage || view.getId() == R.id.aiIcon) {
 
             nextPage(AiPage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
+            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();
         }
     }
