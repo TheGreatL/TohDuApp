@@ -1,25 +1,30 @@
 package com.example.tohdu.Page;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.tohdu.ImportantMethod;
 import com.example.tohdu.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class NotePage extends AppCompatActivity implements ImportantMethod {
-    private int CurrentPage = 0;
-    private int currentId = 0;
+
+    private int timeBackPressOccur = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,46 +35,52 @@ public class NotePage extends AppCompatActivity implements ImportantMethod {
 
     @Override
     public void runCode() {
-        initBottomNav(R.id.notePage);
+        initBottomNav(R.id.noteItem);
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (timeBackPressOccur >= 1) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NotePage.this);
+                    builder.setTitle("Leave")
+                            .setCancelable(false)
+                            .setMessage("Do You Wan to Leave This App?")
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                                System.exit(1);
+                            })
+                            .setNegativeButton("No", null);
+                    builder.show();
+
+                }
+                timeBackPressOccur++;
+
+            }
+        });
     }
 
     private void initBottomNav(int currentPage) {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(currentPage);
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            if (currentPage == menuItem.getItemId()) return false;
 
-        int[] pageID = {R.id.homePage, R.id.schedulePage, R.id.notePage, R.id.aiPage};
-        int[] iconID = {R.id.homeIcon, R.id.scheduleIcon, R.id.noteIcon, R.id.aiIcon};
-        for (int index = 0; index < iconID.length; index++) {
-            if (pageID[index] == currentPage) {
-                this.CurrentPage = pageID[index];
-                this.currentId = iconID[index];
-                break;
+
+            if (menuItem.getItemId() == R.id.homeItem) {
+                nextPage(HomePage.class, new ArrayList<>(Collections.singletonList("Home")));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            } else if (menuItem.getItemId() == R.id.scheduleItem) {
+                nextPage(SchedulePage.class, new ArrayList<>(Collections.singletonList("Schedule")));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            } else if (menuItem.getItemId() == R.id.noteItem) {
+                nextPage(NotePage.class, new ArrayList<>(Collections.singletonList("Note")));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            } else if (menuItem.getItemId() == R.id.aiItem) {
+                nextPage(AiPage.class, new ArrayList<>(Collections.singletonList("Ai")));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
-        }
-        if (currentPage == R.id.homePage) {
-            TextView label = findViewById(R.id.homeLabel);
-            label.setVisibility(View.VISIBLE);
-            ImageView icon = findViewById(R.id.homeIcon);
 
-            icon.setColorFilter(ContextCompat.getColor(this, R.color.Neon), PorterDuff.Mode.SRC_ATOP);
-        } else if (currentPage == R.id.schedulePage) {
-            TextView label = findViewById(R.id.scheduleLabel);
-            label.setVisibility(View.VISIBLE);
-            ImageView icon = findViewById(R.id.scheduleIcon);
-
-            icon.setColorFilter(ContextCompat.getColor(this, R.color.Neon), PorterDuff.Mode.SRC_ATOP);
-        } else if (currentPage == R.id.notePage) {
-            TextView label = findViewById(R.id.noteLabel);
-            label.setVisibility(View.VISIBLE);
-            ImageView icon = findViewById(R.id.noteIcon);
-
-            icon.setColorFilter(ContextCompat.getColor(this, R.color.Neon), PorterDuff.Mode.SRC_ATOP);
-        } else if (currentPage == R.id.aiPage) {
-            TextView label = findViewById(R.id.aiLabel);
-            label.setVisibility(View.VISIBLE);
-            ImageView icon = findViewById(R.id.aiIcon);
-
-            icon.setColorFilter(ContextCompat.getColor(this, R.color.Neon), PorterDuff.Mode.SRC_ATOP);
-        }
-
+            return true;
+        });
 
     }
 
@@ -87,45 +98,12 @@ public class NotePage extends AppCompatActivity implements ImportantMethod {
 
     }
 
+
+    @NonNull
     @Override
-    public void initData(int length) {
-
-    }
-
-    @Override
-    public void bottomNaviAction(View view) {
-
-        if (view.getId() == CurrentPage || view.getId() == currentId)
-            return;
-
-
-        if (view.getId() == R.id.homePage || view.getId() == R.id.homeIcon) {
-            nextPage(HomePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
-            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-            finish();
-        } else if (view.getId() == R.id.schedulePage || view.getId() == R.id.scheduleIcon) {
-
-            nextPage(SchedulePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
-            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-
-            finish();
-        } else if (view.getId() == R.id.notePage || view.getId() == R.id.noteIcon) {
-
-            nextPage(NotePage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
-            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-            finish();
-
-        } else if (view.getId() == R.id.aiPage || view.getId() == R.id.aiIcon) {
-
-            nextPage(AiPage.class, new ArrayList<>(Collections.singleton(Collections.singletonList("As"))));
-            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-            finish();
-        }
-    }
-
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
+    public OnBackInvokedDispatcher getOnBackInvokedDispatcher() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+        return super.getOnBackInvokedDispatcher();
     }
 }

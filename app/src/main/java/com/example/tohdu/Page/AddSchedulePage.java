@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -397,7 +398,7 @@ public class AddSchedulePage extends AppCompatActivity implements ImportantMetho
                 Log.d("General_Schedule_Page", "Subject:" + (indexOfList + 1) + " " + subjectListContainer.get(indexOfList));
                 if (SQLiteDB.writeSubject(this, termYear, getIntent().getStringExtra("data1"), subjectListContainer.get(indexOfList)))
                     write = true;
-                      else return;
+                else return;
 
 
             }
@@ -480,19 +481,5 @@ public class AddSchedulePage extends AppCompatActivity implements ImportantMetho
 
     }
 
-    @Override
-    public void initData(int length) {
 
-    }
-
-    @Override
-    public void bottomNaviAction(View view) {
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
 }

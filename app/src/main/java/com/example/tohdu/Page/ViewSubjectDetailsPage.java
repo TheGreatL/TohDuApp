@@ -49,13 +49,5 @@ public class ViewSubjectDetailsPage extends AppCompatActivity implements Importa
 
     }
 
-    @Override
-    public void initData(int length) {
 
-    }
-
-    @Override
-    public void bottomNaviAction(View view) {
-
-    }
 }

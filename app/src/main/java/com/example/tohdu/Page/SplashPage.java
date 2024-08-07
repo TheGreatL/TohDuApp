@@ -32,17 +32,16 @@ public class SplashPage extends AppCompatActivity implements ImportantMethod {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             boolean value;
-            value = SQLiteDB.writeTermData(this, "1stsem1yr", "1st Term 1st Year");
-            value = SQLiteDB.writeTermData(this, "2ndsem1yr", "2nd Term 1st Year");
+            SQLiteDB.writeTermData(this, "1stsem1yr", "1st Term 1st Year");
+            SQLiteDB.writeTermData(this, "2ndsem1yr", "2nd Term 1st Year");
 
-            value = SQLiteDB.writeTermData(this, "1stsem2yr", "1st Term 2nd Year");
-            value = SQLiteDB.writeTermData(this, "2ndsem2yr", "2nd Term 2nd Year");
+            SQLiteDB.writeTermData(this, "1stsem2yr", "1st Term 2nd Year");
+            SQLiteDB.writeTermData(this, "2ndsem2yr", "2nd Term 2nd Year");
 
-            value = SQLiteDB.writeTermData(this, "1stsem3yr", "1st Term 3rd Year");
-            value = SQLiteDB.writeTermData(this, "2ndsem3yr", "2nd Term 3rd Year");
+            SQLiteDB.writeTermData(this, "1stsem3yr", "1st Term 3rd Year");
+            SQLiteDB.writeTermData(this, "2ndsem3yr", "2nd Term 3rd Year");
 
-
-            value = SQLiteDB.writeTermData(this, "1stsem4yr", "1st Term 4th Year");
+            SQLiteDB.writeTermData(this, "1stsem4yr", "1st Term 4th Year");
             value = SQLiteDB.writeTermData(this, "2ndsem4yr", "2nd Term 4th Year");
 
 
@@ -64,16 +63,6 @@ public class SplashPage extends AppCompatActivity implements ImportantMethod {
     public void nextPage(Class<?> nextActivity, ArrayList<Object> info) {
         startActivity(new Intent(this, nextActivity));
         finish();
-    }
-
-    @Override
-    public void initData(int length) {
-
-    }
-
-    @Override
-    public void bottomNaviAction(View view) {
-
     }
 
     @SuppressLint("MissingSuperCall")

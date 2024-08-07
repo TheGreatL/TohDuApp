@@ -6,7 +6,18 @@
     <item android:id="@+id/scheduleItem"
         android:icon="@drawable/schedule_icon"
         android:title="@string/schedule"/>
-    <item android:id="@+id/reportBugItem"
-        android:icon="@drawable/baseline_bug_report_24"
-        android:title="@string/report_bug"/>
+    <item
+        android:title=""
+        android:enabled="false"
+
+        />
+    <item android:id="@+id/noteItem"
+        android:icon="@drawable/baseline_notes_24"
+        android:title="@string/note"
+
+        />
+
+    <item android:id="@+id/aiItem"
+        android:icon="@drawable/ai_icon"
+        android:title="@string/chatgtp"/>
 </menu>

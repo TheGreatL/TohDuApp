@@ -31,11 +31,9 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
     private final String[] info = new String[2];
     private int todoID;
 
-    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         runCode();
     }
 
@@ -209,15 +207,7 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
         startActivity(new Intent(this, nextActivity));
     }
 
-    @Override
-    public void initData(int length) {
 
-    }
-
-    @Override
-    public void bottomNaviAction(View view) {
-
-    }
 
 
 }

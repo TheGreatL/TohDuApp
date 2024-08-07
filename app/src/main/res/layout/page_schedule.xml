@@ -82,6 +82,7 @@
 
 
                     <TextView
+                        android:id="@+id/mondayTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -98,6 +99,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
+                        android:id="@+id/tuesdayTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -114,6 +116,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
+                        android:id="@+id/wednesdayTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -130,6 +133,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
+                        android:id="@+id/thursdayTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -146,6 +150,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
+                        android:id="@+id/fridayTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -162,6 +167,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
+                        android:id="@+id/saturdayTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -183,176 +189,60 @@
             </ScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/addButton"
-                android:layout_width="wrap_content"
+                android:layout_width="700dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/gray"
                 android:contentDescription="@string/add_button"
                 android:onClick="onButtonClicked"
                 android:src="@drawable/baseline_add_24"
                 android:tint="@color/white"
-                android:translationZ="10dp"
-                app:elevation="2dp" />
-
+                android:translationZ="100dp"
+                app:elevation="500dp"
+                app:borderWidth="1dp"
+                />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/deleteButton"
-                android:layout_width="wrap_content"
+                android:layout_width="700dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/gray"
                 android:contentDescription="@string/add_button"
                 android:onClick="onButtonClicked"
-                android:src="@drawable/baseline_delete_24"
+                android:src="@drawable/baseline_add_24"
                 android:tint="@color/white"
-                android:translationZ="10dp"
-                android:visibility="gone"
-                app:elevation="2dp" />
+                android:translationZ="100dp"
+                app:elevation="500dp"
+                app:borderWidth="1dp"
+                />
 
-            <LinearLayout
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigation"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="65dp"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+
                 android:background="@drawable/bottom_nav_bg"
-                android:paddingHorizontal="10dp">
-
-                <LinearLayout
-                    android:id="@+id/homePage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="bottomNaviAction"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/homeIcon"
-                        style="@style/BottomNavIcons"
-                        android:contentDescription="@string/home"
-                        android:contextClickable="true"
-
-                        android:src="@drawable/baseline_home_24"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:id="@+id/homeLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:letterSpacing="0.1"
-                        android:text="@string/home"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/schedulePage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="bottomNaviAction"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/scheduleIcon"
-                        style="@style/BottomNavIcons"
-                        android:contentDescription="@string/schedule"
-                        android:src="@drawable/schedule_icon"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/scheduleLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:letterSpacing="0.1"
-                        android:text="@string/schedule"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-                </LinearLayout>
-
-                <view
-                    class="android.widget.TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:id="@+id/notePage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="bottomNaviAction"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/noteIcon"
-                        style="@style/BottomNavIcons"
-                        android:contentDescription="@string/note"
-                        android:src="@drawable/baseline_notes_24"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/noteLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:letterSpacing="0.1"
-                        android:text="@string/schedule"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-                </LinearLayout>
+                app:itemIconSize="30dp"
+                app:itemIconTint="@color/Neon"
 
 
-                <LinearLayout
-                    android:id="@+id/aiPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="bottomNaviAction"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/aiIcon"
-                        style="@style/BottomNavIcons"
-                        android:contentDescription="@string/chatgtp"
-                        android:src="@drawable/ai_icon"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/aiLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:letterSpacing="0.1"
-                        android:text="@string/schedule"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-                </LinearLayout>
+                app:itemTextColor="@color/white"
+                app:labelVisibilityMode="selected"
+                app:menu="@menu/bottom_navigation" />
 
 
-            </LinearLayout>
         </RelativeLayout>
 
 
