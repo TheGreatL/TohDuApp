@@ -28,18 +28,18 @@ import java.util.Objects;
 
 public class GeneralTodoListPage extends AppCompatActivity implements ImportantMethod {
 
-    private final String[] info = new String[2];
+    private String time,date;
     private int todoID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         runCode();
+
     }
 
     @Override
     public void runCode() {
-
 
         String activity = getIntent().getStringExtra("data0");
         setContentView(Objects.equals(activity, "AddToDo") ? R.layout.page_add_tohdo : R.layout.page_view_todo_details);
@@ -51,7 +51,7 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
                 todoID = getIntent().getIntExtra("data1", -1);
             }
             String table = Objects.equals(getIntent().getStringExtra("data2"), "NOT DONE") ? "TodoTbl" : "HistoryTBL";
-
+            if(table.equals("HistoryTBL")) findViewById(R.id.doneButton).setVisibility(View.GONE);
             TextView title = findViewById(R.id.todoTitle);
             TextView date = findViewById(R.id.todoDate);
             TextView time = findViewById(R.id.todoTime);
@@ -60,7 +60,6 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
             note.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                 }
 
                 @Override
@@ -72,7 +71,6 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
 
                 @Override
                 public void afterTextChanged(Editable s) {
-
                 }
             });
             TodoItem todoItem = null;
@@ -83,16 +81,15 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
                 Toast.makeText(this, "This task is Already Done", Toast.LENGTH_SHORT).show();
                 nextPage(HomePage.class, null);
                 finish();
-
             }
             if (todoItem == null) return;
 
-            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"};
+
             String year = todoItem.getDate().split("/")[0];
             String month = todoItem.getDate().split("/")[1];
             String day = todoItem.getDate().split("/")[2];
 
-            String setDate = months[Integer.parseInt(month) - 1] + " " + day + ", " + year;
+            String setDate = UtilClass.months[Integer.parseInt(month) - 1] + " " + day + ", " + year;
             int hours = Integer.parseInt(todoItem.getTime().split(":")[0]);
             int minutes = Integer.parseInt(todoItem.getTime().split(":")[1]);
 
@@ -117,7 +114,7 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
             int currYear = Integer.parseInt(currentDay.split("-")[0]);
             int currMonth = Integer.parseInt(currentDay.split("-")[1]);
             int currDay = Integer.parseInt(currentDay.split("-")[2]);
-            info[0] = currYear + "/" + (currMonth + 1) + "/" + (currDay < 10 ? "0" + currDay : currDay);
+            date = currYear + "/" + (currMonth + 1) + "/" + (currDay < 10 ? "0" + currDay : currDay);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,R.style.Date_TimePickerStyle);
             datePickerDialog.show();
@@ -126,26 +123,24 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
 
                 //If Current Year ignore, and go to months
                 if (currYear > selectedYear) {
-                    errorMessage("It should be ahead of the current year");
+                    UtilClass.errorMessage(this,"It should be ahead of the current year");
                     return;
                 }
                 //pag mas malaki yung current month sa selected month
                 // if equal yung year or mas mababa sa current year
                 if (currMonth > (selectedMonth + 1) && currYear >= selectedYear) {
-                    errorMessage("It should be ahead of the current year and month");
+                    UtilClass.errorMessage(this,"It should be ahead of the current year and month");
                     return;
                 }
 
-
-                info[0] = selectedYear + "/" + ((selectedMonth + 1) < 10 ? "0" + (selectedMonth + 1) : selectedMonth + 1) + "/" + (selectedDay < 10 ? "0" + selectedDay : selectedDay);
+                date = selectedYear + "/" + ((selectedMonth + 1) < 10 ? "0" + (selectedMonth + 1) : selectedMonth + 1) + "/" + (selectedDay < 10 ? "0" + selectedDay : selectedDay);
                 ((TextView) findViewById(R.id.pickDate)).setText(selectedYear + " / " + (selectedMonth + 1) + " / " + (selectedDay < 10 ? "0" + selectedDay : selectedDay));
             });
 
         } else if (view.getId() == R.id.pickTime) {
-
-            String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-            int currentHours = Integer.parseInt(time.split(":")[0]);
-            int currentMinutes = Integer.parseInt(time.split(":")[1]);
+            String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+            int currentHours = Integer.parseInt(currentTime.split(":")[0]);
+            int currentMinutes = Integer.parseInt(currentTime.split(":")[1]);
 
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,R.style.Date_TimePickerStyle, (view1, hour, minute) -> {
                 String timePrefix = hour >= 12 ? "PM" : "AM";
@@ -156,7 +151,7 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
                 // If hour is 0 the hour will become 12
                 //0 in hours means 12 AM;
 
-                info[1] = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute);
+               time = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute);
                 ((TextView) findViewById(R.id.pickTime)).setText((hour > 12 ? hour - 12 : hour == 0 ? 12 : hour) + ":" + (minute < 10 ? "0" + minute : minute) + timePrefix);
 
             }, currentHours, currentMinutes, false);
@@ -167,14 +162,14 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
             String title = ((EditText) findViewById(R.id.todoTitleEditText)).getText().toString();
             String note = ((EditText) findViewById(R.id.noteEditText)).getText().toString();
 
-            if ((info[0] == null || info[0].isEmpty()) || (info[1] == null || info[1].isEmpty())) {
+            if ((time == null || time.isEmpty()) || (date == null || date.isEmpty())) {
                 Toast.makeText(this, "Please Don't Leave Field Empty", Toast.LENGTH_SHORT).show();
                 return;
             }
             Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.layout_process_dialog);
             dialog.show();
-            if (SQLiteDB.writeTodo(this, title, info[0], info[1], note)) {
+            if (SQLiteDB.writeTodo(this, title,date, time, note)) {
                 Toast.makeText(this, "Successful Set", Toast.LENGTH_SHORT).show();
                 nextPage(HomePage.class, null);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
@@ -196,10 +191,6 @@ public class GeneralTodoListPage extends AppCompatActivity implements ImportantM
             Toast.makeText(this, "Change Button", Toast.LENGTH_SHORT).show();
         }
 
-    }
-
-    private void errorMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

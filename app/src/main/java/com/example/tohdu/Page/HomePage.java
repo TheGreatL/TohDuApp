@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
@@ -115,6 +116,7 @@ public class HomePage extends AppCompatActivity implements ImportantMethod {
     private void initBottomNav(int currentPage) {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(currentPage);
+
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             if (currentPage == menuItem.getItemId()) return false;
 
@@ -140,7 +142,6 @@ public class HomePage extends AppCompatActivity implements ImportantMethod {
 
     @SuppressLint("ScheduleExactAlarm")
     private void setAlarm() {
-
         if (todoItemList.isEmpty()) return;
         for (int index = 0; index < todoItemList.size(); index++) {
             String time = todoItemList.get(index).getTime();

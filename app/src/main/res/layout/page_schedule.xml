@@ -9,69 +9,67 @@
     tools:context=".Page.SchedulePage">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/scheduleTxt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/your_schedule"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/scheduleTxt"
+        <view
+            android:id="@+id/breakLine"
+            style="@style/BreakLine"
+            class="android.widget.TextView"
+            android:layout_below="@id/scheduleTxt" />
+
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/breakLine"
+            android:theme="@style/TextInputLayoutStyle">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/your_schedule"
-                android:textSize="50sp"
-                android:textStyle="bold" />
 
-            <view
-                android:id="@+id/breakLine"
-                style="@style/BreakLine"
-                class="android.widget.TextView"
-                android:layout_below="@id/scheduleTxt" />
+                android:layout_margin="20dp"
+                android:hint="@string/select_year_term">
 
-
-            <LinearLayout
-                android:id="@+id/layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/breakLine"
-                android:theme="@style/TextInputLayoutStyle">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                <AutoCompleteTextView
+                    android:id="@+id/termDropDown"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:inputType="none"
 
-                    android:layout_margin="20dp"
-                    android:hint="@string/select_year_term">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/termDropDown"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:focusable="false"
-                        android:inputType="none"
-
-                        />
+                    />
 
 
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+        </LinearLayout>
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/refreshBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/bottomNavigation"
-                android:layout_below="@id/layout"
-                >
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refreshBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomNavigation"
+            android:layout_below="@id/layout">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-            >
+                >
 
 
                 <LinearLayout
@@ -187,64 +185,57 @@
                 </LinearLayout>
 
             </ScrollView>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addButton"
+            android:layout_width="700dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:backgroundTint="@color/gray"
+            android:contentDescription="@string/add_button"
+            android:onClick="onButtonClicked"
+            android:src="@drawable/baseline_add_24"
+            android:tint="@color/white"
+            android:translationZ="100dp"
+            app:borderWidth="1dp"
+            app:elevation="500dp" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addButton"
-                android:layout_width="700dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="25dp"
-                android:backgroundTint="@color/gray"
-                android:contentDescription="@string/add_button"
-                android:onClick="onButtonClicked"
-                android:src="@drawable/baseline_add_24"
-                android:tint="@color/white"
-                android:translationZ="100dp"
-                app:elevation="500dp"
-                app:borderWidth="1dp"
-                />
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/deleteButton"
-                android:layout_width="700dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="25dp"
-                android:backgroundTint="@color/gray"
-                android:contentDescription="@string/add_button"
-                android:onClick="onButtonClicked"
-                android:src="@drawable/baseline_add_24"
-                android:tint="@color/white"
-                android:translationZ="100dp"
-                app:elevation="500dp"
-                app:borderWidth="1dp"
-                />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteButton"
+            android:layout_width="700dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:backgroundTint="@color/gray"
+            android:contentDescription="@string/add_button"
+            android:onClick="onButtonClicked"
+            android:src="@drawable/baseline_add_24"
+            android:tint="@color/white"
+            android:translationZ="100dp"
+            app:borderWidth="1dp"
+            app:elevation="500dp" />
 
 
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-
-                android:background="@drawable/bottom_nav_bg"
-                app:itemIconSize="30dp"
-                app:itemIconTint="@color/Neon"
-
-
-                app:itemTextColor="@color/white"
-                app:labelVisibilityMode="selected"
-                app:menu="@menu/bottom_navigation" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/vector"
+            style="@style/TextInputLayoutStyle"
+            app:itemIconSize="30dp"
+            app:itemTextColor="@color/white"
+            app:labelVisibilityMode="selected"
+            app:menu="@menu/bottom_navigation" />
 
 
-        </RelativeLayout>
-
+    </RelativeLayout>
 
 
 </RelativeLayout>
