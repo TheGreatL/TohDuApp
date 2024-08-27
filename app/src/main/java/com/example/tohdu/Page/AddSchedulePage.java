@@ -376,17 +376,13 @@ public class AddSchedulePage extends AppCompatActivity implements ImportantMetho
                         text = "SubjectType:" + entry.getValue().toUpperCase();
 //                        Log.d("General_Schedule_Page", text);
                         temporaryContainer.add(text);
-
                         //Clearing Variable
                         formatter.setLength(0);
                         subjectName = "";
                         index = 0;
-
                         subjectListContainer.add(temporaryContainer);
                         temporaryContainer = new ArrayList<>();
                         continue;
-
-
                 }
                 index++;
 
@@ -395,6 +391,7 @@ public class AddSchedulePage extends AppCompatActivity implements ImportantMetho
 
             boolean write = false;
             for (int indexOfList = 0; indexOfList < subjectListContainer.size(); indexOfList++) {
+                Log.d("General_Schedule_Page",subjectListContainer.get(indexOfList)+"");
                 Log.d("General_Schedule_Page", "Subject:" + (indexOfList + 1) + " " + subjectListContainer.get(indexOfList));
                 if (SQLiteDB.writeSubject(this, termYear, getIntent().getStringExtra("data1"), subjectListContainer.get(indexOfList)))
                     write = true;
